@@ -32,7 +32,13 @@ def extract_recurring_phrases(file_path, min_repeats, min_words=3, max_words=5):
         return [], str(e)
 
     text = text.lower()
-    words = re.findall(r'\w+', text)
+   
+        # Спочатку знаходимо всі слова
+    raw_words = re.findall(r'\w+', text)
+
+        # --- ФІЛЬТРАЦІЯ (ЗМІНИ ТУТ) ---
+    # Залишаємо лише слова, довжина яких >= 2 символи
+    words = [w for w in raw_words if len(w) >= 2]
 
     if not words:
         return [], "Файл порожній."
@@ -291,4 +297,5 @@ class RomanianGapTrainer:
 if __name__ == "__main__":
     root = tk.Tk()
     app = RomanianGapTrainer(root)
+
     root.mainloop()
